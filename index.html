@@ -101,7 +101,7 @@ a{color:#b3181d}
 <div class="ov" id="ovA"><div class="panel"><h2>&#43; Add new company</h2>
 <div class="f">
 <div class="w"><label>Company name *</label><input id="fN"></div>
-<div><label>Category *</label><input id="fC" list="cl"><datalist id="cl"></datalist></div>
+<div><label>Category * (type a new one to create it)</label><input id="fC" list="cl"><datalist id="cl"></datalist></div>
 <div><label>Contact person</label><input id="fP"></div>
 <div><label>Phone</label><input id="fT"></div>
 <div><label>Email</label><input id="fE"></div>
@@ -174,7 +174,9 @@ function chips(){var cs={};DATA.forEach(function(c){if(c.cat)cs[c.cat]=(cs[c.cat
  $('chips').innerHTML=h;Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(c){c.onclick=function(){CAT=c.getAttribute('data-c');chips();render()}})}
 function detail(c){
  function row(l,v){return v?'<div><small>'+l+'</small>'+v+'</div>':''}
- $('det').innerHTML='<h2>'+esc(c.name)+'</h2><span class="ct">'+esc(c.cat)+'</span><div class="dl">'+row('Contact person',esc(c.contact))+row('Phone',c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a>':'')+row('Email',c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'')+row('Rating',esc(c.rating))+row('Address',esc(c.address))+row('Scope of work',esc(c.scope))+row('Start date',esc(c.start))+row('Notes',esc(c.notes))+'</div><div class="act"><button class="btn" id="clD">Close</button></div>';
+ $('det').innerHTML='<h2>'+esc(c.name)+'</h2><span class="ct">'+esc(c.cat)+'</span><div class="dl">'+row('Contact person',esc(c.contact))+row('Phone',c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a>':'')+row('Email',c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'')+row('Rating',esc(c.rating))+row('Address',esc(c.address))+row('Scope of work',esc(c.scope))+row('Start date',esc(c.start))+row('Notes',esc(c.notes))+'</div><div class="act"><button class="btn ghost" id="delD" style="color:#b3181d;border-color:#b3181d">Delete company</button><button class="btn" id="clD">Close</button></div>';
+ $('delD').onclick=function(){if(!confirm('Delete "'+c.name+'"? / حذف الشركة؟'))return;var b=$('delD');b.disabled=true;b.textContent='Deleting...';
+  fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'delete',data:{id:c.id||'',name:c.name}})}).then(function(r){return r.json()}).then(function(d){if(d.error)throw new Error(d.error);$('ovD').classList.remove('on');load()}).catch(function(e){b.disabled=false;b.textContent='Delete company';alert(e.message)})};
  $('ovD').classList.add('on');$('clD').onclick=function(){$('ovD').classList.remove('on')}}
 $('ovD').onclick=function(e){if(e.target===this)this.classList.remove('on')};
 function load(){
