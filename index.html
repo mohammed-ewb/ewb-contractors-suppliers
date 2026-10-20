@@ -219,7 +219,7 @@ $('sv').onclick=save;$('dup').onclick=function(){allowDup=true;save()};
 load();
 </script><script>
 (function(){var it=document.getElementById('intro');if(!it)return;
-var seen=false;try{seen=sessionStorage.getItem('ewbIntro')==='1';sessionStorage.setItem('ewbIntro','1')}catch(e){}
+var seen=false;
 function hide(){it.style.display='none'}
 if(seen){hide();return}
 document.getElementById('skip').onclick=hide;
