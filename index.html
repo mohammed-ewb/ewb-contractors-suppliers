@@ -97,6 +97,11 @@ svg text.lE,svg text.lW,svg text.lB{transform-box:fill-box;transform-origin:cent
 .smoke{opacity:0;transform-box:fill-box;transform-origin:center;animation:sm 13s ease-out infinite;animation-delay:var(--d,0s)}
 @keyframes sm{0%,3%{opacity:0;transform:translate(0,0) scale(.4)}10%{opacity:.5}34%{opacity:0;transform:translate(var(--dx),-110px) scale(2.4)}100%{opacity:0}}
 @media (max-width:640px){header{flex-wrap:wrap;padding:10px 14px}.ttl b{font-size:16px}#stage{padding:16px 14px 60px}.bar{padding:14px 14px 4px}.f{grid-template-columns:1fr}}
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:10px auto 0;max-width:1100px}
+.tools .btn{padding:8px 14px;font-size:13px}
+.tools .sel{font-weight:700;color:#e31e24;font-size:13px}
+.card .ck{position:absolute;top:10px;right:12px;width:22px;height:22px;accent-color:#e31e24;cursor:pointer;z-index:3}
+.card.picked{border-color:#e31e24;box-shadow:0 0 0 3px rgba(227,30,36,.35),0 18px 40px rgba(0,0,0,.2)}
 </style></head><body>
 <canvas id="bg"></canvas>
 <div id="bgLogo"><div class="spin"><svg viewBox="0 0 427 650" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="cg"><stop offset="0" stop-color="#fff2a0"/><stop offset=".35" stop-color="#ff9a00"/><stop offset="1" stop-color="#ff3d00" stop-opacity="0"/></radialGradient></defs><path d="M-10,650 L150,548 Q170,528 190,530 L236,530 Q256,528 276,548 L440,650 Z" fill="#4a4a4a"/><path d="M150,548 Q170,528 190,530 L236,530 Q256,528 276,548 L255,560 Q213,548 171,560 Z" fill="#6a6a6a"/><g fill="none" stroke="#ff5a1f" stroke-width="5" stroke-linecap="round"><path class="lava" d="M196,538 Q180,580 158,630"/><path class="lava" d="M232,538 Q250,590 272,640" style="animation-delay:.2s"/><path class="lava" d="M213,540 Q210,590 214,645" style="animation-delay:.4s"/></g><ellipse class="glow" cx="213" cy="530" rx="46" ry="30" fill="url(#cg)"/><circle class="smoke" cx="195" cy="526" r="16" fill="#777" style="--dx:-27.0px;--d:0.1s"/><circle class="smoke" cx="225" cy="526" r="16" fill="#777" style="--dx:18.0px;--d:0.35s"/><circle class="smoke" cx="213" cy="526" r="16" fill="#777" style="--dx:0.0px;--d:0.6s"/><circle class="em" cx="213" cy="534" r="2" fill="#ffb300" style="--dx:-60px;--dy:-260px;--d:0.0s"/><circle class="em" cx="213" cy="534" r="3" fill="#ff5a1f" style="--dx:-35px;--dy:-310px;--d:0.04s"/><circle class="em" cx="213" cy="534" r="4" fill="#ffb300" style="--dx:-10px;--dy:-340px;--d:0.08s"/><circle class="em" cx="213" cy="534" r="2" fill="#ff5a1f" style="--dx:15px;--dy:-300px;--d:0.12s"/><circle class="em" cx="213" cy="534" r="3" fill="#ffb300" style="--dx:40px;--dy:-330px;--d:0.16s"/><circle class="em" cx="213" cy="534" r="4" fill="#ff5a1f" style="--dx:65px;--dy:-270px;--d:0.2s"/><circle class="em" cx="213" cy="534" r="2" fill="#ffb300" style="--dx:-80px;--dy:-200px;--d:0.24s"/><circle class="em" cx="213" cy="534" r="3" fill="#ff5a1f" style="--dx:80px;--dy:-210px;--d:0.28s"/><circle class="em" cx="213" cy="534" r="4" fill="#ffb300" style="--dx:-20px;--dy:-230px;--d:0.32s"/><circle class="em" cx="213" cy="534" r="2" fill="#ff5a1f" style="--dx:25px;--dy:-250px;--d:0.36s"/><circle class="em" cx="213" cy="534" r="3" fill="#ffb300" style="--dx:0px;--dy:-290px;--d:0.4s"/><circle class="em" cx="213" cy="534" r="4" fill="#ff5a1f" style="--dx:55px;--dy:-310px;--d:0.44s"/><g fill="none" stroke="#6a6a6a" stroke-width="17"><circle class="rg" cx="150" cy="238" r="62"/><circle class="rg" cx="278" cy="238" r="62"/></g><polygon class="tri" points="213,38 44,340 383,340" fill="none" stroke="#ed1c24" stroke-width="16" stroke-linejoin="miter"/><g font-family="Arial Black,Impact,Arial,sans-serif" font-weight="900" font-size="46" text-anchor="middle"><text class="lE" x="213" y="165">E</text><text class="lW" x="162" y="258">W</text><text class="lB" x="265" y="258">B</text></g><text class="tx" x="213" y="375" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-weight="700" font-size="28" fill="#111" textLength="356" lengthAdjust="spacingAndGlyphs">ENGINEERS WITHOUT BORDERS</text><rect class="tx" x="33" y="383" width="362" height="3" fill="#ed1c24"/></svg></div></div>
@@ -109,6 +114,7 @@ svg text.lE,svg text.lW,svg text.lB{transform-box:fill-box;transform-origin:cent
 <button class="btn ghost" id="rf" title="Refresh">&#8635;</button>
 <button class="btn" id="add">&#43; Add company</button></header>
 <div class="bar"><div class="search"><i>&#9906;</i><input id="q" placeholder="Search by name, category, phone, email, scope..." autocomplete="off"></div><div class="chips" id="chips"></div></div>
+<div class="tools"><button class="btn ghost" id="selAll">&#9745; Select all shown</button><button class="btn ghost" id="selNone">Clear selection</button><span class="sel" id="selN"></span><button class="btn" id="dlSel">&#11015; Download selected</button><button class="btn ghost" id="dlShown">&#11015; Download shown</button><button class="btn ghost" id="dlAll">&#11015; Download all</button></div>
 <div id="stage"><div id="grid"></div></div></div>
 <div class="ov" id="ovD"><div class="panel" id="det"></div></div>
 <div class="ov" id="ovA"><div class="panel"><h2 id="pT">&#43; Add new company</h2>
@@ -147,7 +153,7 @@ window.google={script:{run:mkRun(null,null)}};
 /* ---- logo (header + intro) ---- */
 var LSVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 270"><polygon points="112,50 218,228 6,228" fill="#fff" stroke="#e31e24" stroke-width="16" stroke-linejoin="miter"/><ellipse cx="78" cy="168" rx="44" ry="36" fill="none" stroke="#6b6b6b" stroke-width="13"/><ellipse cx="148" cy="168" rx="44" ry="36" fill="none" stroke="#6b6b6b" stroke-width="13"/><g font-family="Arial,sans-serif" font-weight="900" font-size="34" fill="#111" text-anchor="middle"><text x="112" y="125">E</text><text x="80" y="180">W</text><text x="148" y="180">B</text></g><rect x="222" y="140" width="574" height="5" fill="#e31e24"/><text x="796" y="128" text-anchor="end" direction="rtl" font-family="Tahoma,Arial,sans-serif" font-size="38" font-weight="700" fill="#222">مهندسون بلا حدود للإستشارات الهندسية</text><text x="224" y="182" font-family="Arial,sans-serif" font-size="30" fill="#222" textLength="572" lengthAdjust="spacingAndGlyphs"><tspan fill="#e31e24" font-size="38" font-weight="700">E</tspan>NGINEERS <tspan fill="#e31e24" font-size="38" font-weight="700">W</tspan>ITHOUT <tspan fill="#e31e24" font-size="38" font-weight="700">B</tspan>ORDERS CONSULTANTS</text></svg>';
 var LOGO="data:image/svg+xml;utf8,"+encodeURIComponent(LSVG);
-var DATA=[],CAT='',allowDup=false,logoObj=null,editC=null;
+var SEL={},SHOWN=[],DATA=[],CAT='',allowDup=false,logoObj=null,editC=null;
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 Array.prototype.forEach.call(document.querySelectorAll('.lg'),function(im){im.src=LOGO});
@@ -171,17 +177,31 @@ function ini(n){var w=String(n).trim().split(/\s+/);return ((w[0]||'?')[0]+(w[1]
 function render(){
  var q=$('q').value.trim().toLowerCase(),out=[];
  DATA.forEach(function(c){if(CAT&&c.cat!==CAT)return;if(q&&(c.name+' '+c.cat+' '+c.contact+' '+c.phone+' '+c.email+' '+c.scope+' '+c.address+' '+c.notes).toLowerCase().indexOf(q)<0)return;out.push(c)});
- $('cnt').textContent=out.length;
+ $('cnt').textContent=out.length;SHOWN=out;
  var h=out.slice(0,300).map(function(c,i){
   var av=c.logo?'<img src="'+esc(c.logo)+'" alt="'+esc(ini(c.name))+'" onerror="this.parentNode.textContent=this.alt">':esc(ini(c.name));
-  return '<div class="card" data-i="'+c.idx+'" style="animation-delay:'+Math.min(i,24)*45+'ms"><div class="shine"></div><div class="top"><div class="av">'+av+'</div><div><div class="nm">'+esc(c.name)+'</div><span class="ct">'+esc(c.cat||'-')+'</span></div></div><div class="rows">'+(c.contact?'<div>&#128100; <b>'+esc(c.contact)+'</b></div>':'')+(c.phone?'<div>&#9742; '+esc(c.phone)+'</div>':'')+(c.email?'<div>&#9993; '+esc(c.email)+'</div>':'')+(c.rating?'<div>&#9733; '+esc(c.rating)+'</div>':'')+'</div></div>'}).join('');
- $('grid').innerHTML=h||'<div class="empty">No companies match your search</div>';
+  return '<div class="card'+(SEL[c.idx]?' picked':'')+'" data-i="'+c.idx+'" style="animation-delay:'+Math.min(i,24)*45+'ms"><div class="shine"></div><input type="checkbox" class="ck" title="Select"'+(SEL[c.idx]?' checked':'')+'><div class="top"><div class="av">'+av+'</div><div><div class="nm">'+esc(c.name)+'</div><span class="ct">'+esc(c.cat||'-')+'</span></div></div><div class="rows">'+(c.contact?'<div>&#128100; <b>'+esc(c.contact)+'</b></div>':'')+(c.phone?'<div>&#9742; '+esc(c.phone)+'</div>':'')+(c.email?'<div>&#9993; '+esc(c.email)+'</div>':'')+(c.rating?'<div>&#9733; '+esc(c.rating)+'</div>':'')+'</div></div>'}).join('');
+ upd();$('grid').innerHTML=h||'<div class="empty">No companies match your search</div>';
  Array.prototype.forEach.call(document.querySelectorAll('.card'),tilt)}
 function tilt(el){
  el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
   el.style.transform='perspective(900px) rotateY('+((x-.5)*22)+'deg) rotateX('+((.5-y)*18)+'deg) translateZ(40px) scale(1.03)';el.style.setProperty('--mx',x*100+'%');el.style.setProperty('--my',y*100+'%')});
  el.addEventListener('mouseleave',function(){el.style.transform=''});
+ var ck=el.querySelector('.ck');
+ ck.addEventListener('click',function(e){e.stopPropagation();var i=el.getAttribute('data-i');if(ck.checked){SEL[i]=1;el.classList.add('picked')}else{delete SEL[i];el.classList.remove('picked')}upd()});
  el.addEventListener('click',function(){detail(DATA[+el.getAttribute('data-i')])})}
+function upd(){var n=Object.keys(SEL).length;$('selN').textContent=n?n+' selected':'';$('dlSel').disabled=!n;$('dlSel').style.opacity=n?1:.5}
+function csv(list,name){
+ var H=['Company','Category','Contact Person','Phone','Email','Rating','Start Date','Address','Scope of Work','Notes'],K=['name','cat','contact','phone','email','rating','start','address','scope','notes'];
+ function q(v){v=String(v==null?'':v).replace(/"/g,'""');return '"'+v+'"'}
+ var rows=[H.map(q).join(',')];list.forEach(function(c){rows.push(K.map(function(k){return q(c[k])}).join(','))});
+ var b=new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a'),d=new Date().toISOString().slice(0,10);
+ a.href=URL.createObjectURL(b);a.download='EWB_'+name+'_'+list.length+'_'+d+'.csv';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)}
+$('selAll').onclick=function(){SHOWN.forEach(function(c){SEL[c.idx]=1});render()};
+$('selNone').onclick=function(){SEL={};render()};
+$('dlSel').onclick=function(){var l=DATA.filter(function(c){return SEL[c.idx]});if(l.length)csv(l,'Selected')};
+$('dlShown').onclick=function(){if(SHOWN.length)csv(SHOWN,'Shown')};
+$('dlAll').onclick=function(){csv(DATA,'All_Companies')};
 function chips(){var cs={};DATA.forEach(function(c){if(c.cat)cs[c.cat]=(cs[c.cat]||0)+1});
  var h='<div class="chip'+(CAT?'':' on')+'" data-c="">All</div>'+Object.keys(cs).sort().map(function(k){return '<div class="chip'+(CAT===k?' on':'')+'" data-c="'+esc(k)+'">'+esc(k)+' ('+cs[k]+')</div>'}).join('');
  $('chips').innerHTML=h;Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(c){c.onclick=function(){CAT=c.getAttribute('data-c');chips();render()}})}
